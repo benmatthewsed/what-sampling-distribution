@@ -1,0 +1,140 @@
+---
+title: "What's the sampling distribution of that thing you care about?"
+title-slide-attributes:
+    data-background-color: "#006938"
+author: "Ben Matthews"
+institute: "University of Stirling"
+date: "June 2026"
+date-format: long
+format: 
+  revealjs:
+    smaller: true
+    scrollable: true
+    slide-number: true
+    theme: [default, styles.scss]
+    math: mathjax
+output-dir: docs
+---
+
+## Overview
+
+- Average predictive comparisons
+- Case study: victimization divides
+- Case study: standardization and decomposition
+
+## Average predictive comparisons
+
+- I cite Gelman and Pardoe (2007) or King et al. (2000) in basically every paper I write
+- You can use a statistical model to generate predictions for things you care about with appropriate uncertainty
+- And then transform those predictions however you want
+
+## Derived Quantities of Interest
+
+- King et al. call these 'Dervied Quantities of Interest'
+- "social scientists often do not take full advantage of the information available in their statistical results and thus miss opportunities to present quantities that could shed the greatest light on their research questions"
+- "we show how to convert the raw results of any statistical procedure into expressions that (1) convey numerically precise estimates of the quantities of greatest substantive interest, (2) include reasonable measures of uncertainty about those estimates, and (3) require little specialized knowledge to understand"
+- Sounds good!
+
+## Derived Quantities of Interest
+- **Insert screenshot of one of their examples here**
+
+## Marginal effects as DQIs
+- Marginal effects are the same idea (depending on the flavour of marginal effect)
+- Average marginal effects - create a prediction for everyone in your dataset under counterfactuals for variable of interest then average the difference in predicted values for the levels of your variable of interest (do it lots of times, take the average)
+- Marginal effects at the means - calculate the counterfactual predictions just once, plugging the average values into the regression equation
+
+## Uncertainty in these DQIs
+
+- For some DQIs (most marginal effects) the sampling distribution is asympottically Normal. Use the delta method!
+- Not always though - King et al. recommend a parametric simulation approach
+- Part of the promise of these methods is that you can calculate *any* quantity you think is interesting
+- Uh oh
+
+# Case study one: Victimization divide {background-color="#006938"}
+
+## The victimisation divide
+
+- "the percentage increase or decrease in victimization inequality between two groups across two comparison years" (my summary)
+
+- "The victimisation divide between the base household and almost all socio-economic groups examined here widened between 1993 and 2008/09. For example, non-white HRP households experienced almost a fourfold (3.91, calculated as [(1.486–1)−(1.099–1)]/(1.099–1) from Table 2)"
+
+- Or if you like:
+$$ \frac{(RV_{T2}-1)-(RV_{T1}-1)}{RV_{T1}-1} $$
+
+## The victimisation divide: what sampling distribution?
+
+- Add figure here
+
+
+**Table 2. Prevalence of victimization by sex in England and Wales, 2015 and 2020**
+
+| Sex   | Year | Sample size | Prevalence (%) |
+|--------|------|------------:|---------------:|
+| Men    | 2015 | 15,030 | 16.7 |
+| Women  | 2015 | 18,320 | 15.3 |
+| Men    | 2020 | 15,505 | 19.7 |
+| Women  | 2020 | 18,230 | 18.9 |
+
+*Source: Crime Survey for England and Wales. For the purposes of this illustrative example we have not applied survey weights.*
+
+## Calculating the Odds Ratios
+
+**Table Three: Regression Coefficients for Differences in Victimization Prevalence by Sex in England and Wales, 2015 and 2020**
+
+| Model | Sex | Year | Log-odds | Standard error | p-value | Odds ratio |
+|-------|-----|------|----------|----------------|---------|------------|
+| 1 | Men | 2015 | 0.11 | 0.03 | 0.00 | 1.11 |
+| 2 | Men | 2020 | 0.05 | 0.03 | 0.06 | 1.05 |
+
+**Source:** Crime Survey for England and Wales (using data from Table Two). Victimization prevalence for women was used as the reference category. Data for each year was modelled separately.
+
+## Calculating the victimization divide
+
+$$
+D = \frac{(1.05 - 1) - (1.11 - 1)}{(1.11 - 1)} = -0.52
+$$
+
+## Uncertainty in this estimate
+
+- Add figure
+
+## Uh oh
+
+- When the difference in the first year is not statistically significant (i.e. when they plausibly overlap) calculating the victimization divide involves dividing by very small positive numbers, very small negative numbers, and maybe zero
+- This is bad!
+
+# Case study two: Standardization and decomposition {background-color="#006938"}
+
+## Standardization and decomposition
+- You might want to separate out contributions of different factors to a rate in two or more populations
+- This is standard practice in demography (see Kitagawa), and similar to Oaxaca-Blinder decomposition of regression results
+- How much of the fall in Scotland's reconviction rate is due to changing demographics?
+
+## A nice example
+- Insert results decomposing 2004 and 2016 difference
+- add image from vignette
+
+## A not-so-nice example
+- Insert results decomposing 2015 and 2016 difference
+- add image from vignette
+
+## It's the same problem!
+- In both cases the 'problem' is that you are calculating a quantity of interest that can involve dividing by arbitrarily small numbers
+- In the first case, you do absolutely need to factor in the uncertainty in the estimated victimization rates (it's from a survey!)
+- The simulated VDs help identify when the comparison is pathological - the King et al. method is useful as a quality check not just to provide clear outputs
+- (In that toy example, the fix is actually just to model all the years together with an interaction effect - but that won't work so well in more complex cases)
+- In this case (a la King) the simulation was after fitting the model (i.e. parametric)
+
+## It's the same problem!
+- In the second case maybe you could argue that you don't need to factor in uncertainty in the underlying rates - it's admin data, the reconviction cohorts are what they are, what are you a Bayesian or something
+- But it's still I think useful to know how sensitive your results are to small changes in the input data
+- Bootstrapping the raw data (nonparametric simulation) can show when your results are fragile
+- Likewise just a statistical significance test on the underlying rates
+
+## Why is this useful
+
+- There is, it turns out, statistical theory on confidence intervals for ratios and how to calculate them etc (Ref from vignette)
+- But I didn't need to know that! The 'rage hulk' (h/t quantitude) method of letting computer go brrr identified the problem and gave calibrated uncertainty estimates
+- `marginaleffects` package for R and `clarify` package for R and Stata can do this post-estimation caculation from a regression model
+
+# Thank you! {background-color="#006938"}
