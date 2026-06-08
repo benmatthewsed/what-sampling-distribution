@@ -10,7 +10,7 @@
   <meta name="generator" content="quarto-1.7.32">
 
   <meta name="author" content="Ben Matthews">
-  <meta name="dcterms.date" content="2026-06-01">
+  <meta name="dcterms.date" content="2026-06-17">
   <title>What’s the sampling distribution of that thing you care about?</title>
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
@@ -29,7 +29,27 @@
       margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
       vertical-align: middle;
     }
-  </style>
+    /* CSS for citations */
+    div.csl-bib-body { }
+    div.csl-entry {
+      clear: both;
+      margin-bottom: 0em;
+    }
+    .hanging-indent div.csl-entry {
+      margin-left:2em;
+      text-indent:-2em;
+    }
+    div.csl-left-margin {
+      min-width:2em;
+      float:left;
+    }
+    div.csl-right-inline {
+      margin-left:2em;
+      padding-left:1em;
+    }
+    div.csl-indent {
+      margin-left: 2em;
+    }  </style>
   <link rel="stylesheet" href="index_files/libs/revealjs/dist/theme/quarto-889d48d1db2482a990177e2437fa3801.css">
   <link href="index_files/libs/revealjs/plugin/quarto-line-highlight/line-highlight.css" rel="stylesheet">
   <link href="index_files/libs/revealjs/plugin/reveal-menu/menu.css" rel="stylesheet">
@@ -142,7 +162,7 @@ Ben Matthews
     </div>
 </div>
 
-  <p class="date">June 1, 2026</p>
+  <p class="date">June 17, 2026</p>
 </section>
 <section id="overview" class="slide level2">
 <h2>Overview</h2>
@@ -152,65 +172,79 @@ Ben Matthews
 <li>Case study: standardization and decomposition</li>
 </ul>
 </section>
-<section id="average-predictive-comparisons" class="slide level2">
-<h2>Average predictive comparisons</h2>
+<section id="apc-or-dqi" class="slide level2">
+<h2>APC or DQI</h2>
 <ul>
-<li>I cite Gelman and Pardoe (2007) or King et al.&nbsp;(2000) in basically every paper I write</li>
-<li>You can use a statistical model to generate predictions for things you care about with appropriate uncertainty</li>
+<li>I cite <span class="citation" data-cites="gelmanAveragePredictiveComparisons2007">Gelman and Pardoe (<a href="#/references" role="doc-biblioref" onclick="">2007</a>)</span> or <span class="citation" data-cites="kingMakingMostStatistical2000">King, Tomz, and Wittenberg (<a href="#/references" role="doc-biblioref" onclick="">2000</a>)</span> in basically every paper I write</li>
+<li>TLDR: you can use a statistical model to generate predictions for things you care about with appropriate uncertainty</li>
 <li>And then transform those predictions however you want</li>
+<li>Gelman and Pardoe call these Average Predictive Comparisons and King et al.&nbsp;call these ‘Dervied Quantities of Interest’</li>
 </ul>
 </section>
 <section id="derived-quantities-of-interest" class="slide level2">
 <h2>Derived Quantities of Interest</h2>
 <ul>
-<li>King et al.&nbsp;call these ‘Dervied Quantities of Interest’</li>
-<li>“social scientists often do not take full advantage of the information available in their statistical results and thus miss opportunities to present quantities that could shed the greatest light on their research questions”</li>
+<li>From <span class="citation" data-cites="kingMakingMostStatistical2000">King, Tomz, and Wittenberg (<a href="#/references" role="doc-biblioref" onclick="">2000</a>)</span>: “social scientists often do not take full advantage of the information available in their statistical results and thus miss opportunities to present quantities that could shed the greatest light on their research questions”</li>
 <li>“we show how to convert the raw results of any statistical procedure into expressions that (1) convey numerically precise estimates of the quantities of greatest substantive interest, (2) include reasonable measures of uncertainty about those estimates, and (3) require little specialized knowledge to understand”</li>
 <li>Sounds good!</li>
 </ul>
 </section>
 <section id="derived-quantities-of-interest-1" class="slide level2">
 <h2>Derived Quantities of Interest</h2>
+
+<img data-src="figs/king.png" class="r-stretch quarto-figure-center"><p class="caption">king-fig</p></section>
+<section id="derived-quantities-of-interest-2" class="slide level2">
+<h2>Derived Quantities of Interest</h2>
 <ul>
-<li><strong>Insert screenshot of one of their examples here</strong></li>
+<li>“the probability of voting rises steadily to a plateau between the ages of 45 and 65, and then tapers downward through the retirement years. The figure also reveals that uncertainty associated with the expected value is greatest at the two extremes of age: the vertical bars, which represent 99-percent confidence intervals, are longest when the respondent is very young or old” <span class="citation" data-cites="kingMakingMostStatistical2000">(<a href="#/references" role="doc-biblioref" onclick="">King, Tomz, and Wittenberg 2000</a>)</span></li>
 </ul>
 </section>
 <section id="marginal-effects-as-dqis" class="slide level2">
 <h2>Marginal effects as DQIs</h2>
 <ul>
-<li>Marginal effects are the same idea (depending on the flavour of marginal effect)</li>
+<li>Marginal effects are the same idea (depending on the flavour of marginal effect), where the derived quantity is some kind of difference <span class="citation" data-cites="arel-bundockHowInterpretStatistical2024a">(<a href="#/references" role="doc-biblioref" onclick="">Arel-Bundock, Greifer, and Heiss 2024</a>)</span></li>
 <li>Average marginal effects - create a prediction for everyone in your dataset under counterfactuals for variable of interest then average the difference in predicted values for the levels of your variable of interest (do it lots of times, take the average)</li>
 <li>Marginal effects at the means - calculate the counterfactual predictions just once, plugging the average values into the regression equation</li>
 </ul>
 </section>
-<section id="uncertainty-in-these-dqis" class="slide level2">
+<section id="uncertainty-in-these-dqis" class="slide level2 scrollable">
 <h2>Uncertainty in these DQIs</h2>
 <ul>
-<li>For some DQIs (most marginal effects) the sampling distribution is asympottically Normal. Use the delta method!</li>
-<li>Not always though - King et al.&nbsp;recommend a parametric simulation approach</li>
+<li>For some DQIs (and most marginal effects) the sampling distribution is asymptotically Normal. Use the delta method!<sup>1</sup></li>
 <li>Part of the promise of these methods is that you can calculate <em>any</em> quantity you think is interesting</li>
-<li>Uh oh</li>
+<li>No guarantees that the sampling distribution of the quantity you care about is asymptotically Normal</li>
+<li>This is okay, you don’t need to rely on this assumption - <span class="citation" data-cites="kingMakingMostStatistical2000">King, Tomz, and Wittenberg (<a href="#/references" role="doc-biblioref" onclick="">2000</a>)</span> recommend a parametric simulation approach</li>
+<li>But… uh oh</li>
 </ul>
-</section>
+<aside><ol class="aside-footnotes"><li id="fn1"><p>I am absolutely not answering questions about the delta method so please don’t ask</p></li></ol></aside></section>
 <section>
 <section id="case-study-one-victimization-divide" class="title-slide slide level1 center" data-background-color="#006938">
 <h1>Case study one: Victimization divide</h1>
 
 </section>
-<section id="the-victimisation-divide" class="slide level2">
-<h2>The victimisation divide</h2>
+<section id="the-victimisation-divide-conceptually" class="slide level2 scrollable">
+<h2>The victimisation divide: conceptually</h2>
 <ul>
-<li><p>“the percentage increase or decrease in victimization inequality between two groups across two comparison years” (my summary)</p></li>
-<li><p>“The victimisation divide between the base household and almost all socio-economic groups examined here widened between 1993 and 2008/09. For example, non-white HRP households experienced almost a fourfold (3.91, calculated as [(1.486–1)−(1.099–1)]/(1.099–1) from Table 2)”</p></li>
+<li><p>“the percentage increase or decrease in victimization inequality between two groups across two comparison years” <span class="citation" data-cites="matthewsCrimeDropWhom2025">(my summary in <a href="#/references" role="doc-biblioref" onclick="">Matthews and McVie 2025</a>)</span></p></li>
+<li><p>“The victimisation divide between the base household and almost all socio-economic groups examined here widened between 1993 and 2008/09” <span class="citation" data-cites="hunterEquityJusticeCrime2016">(<a href="#/references" role="doc-biblioref" onclick="">Hunter and Tseloni 2016</a>)</span></p></li>
+<li><p>“For example, non-white [Household Reference Person (HRP)] households experienced almost a fourfold (3.91, calculated as [(1.486–1)−(1.099–1)]/(1.099–1) from Table 2) increase in the number of burglaries suffered compared to white HRP households”<sup>1</sup></p></li>
+</ul>
+<aside><ol class="aside-footnotes"><li id="fn2"><p>I think these numbers are coefficients from a Negative Binomial regression model. It’s possible that they are actually predicted counts - the paper isn’t clear</p></li></ol></aside></section>
+<section id="the-victimisation-divide-mathematically" class="slide level2">
+<h2>The victimisation divide: Mathematically</h2>
+<ul>
 <li><p>Or if you like: <span class="math display">\[ \frac{(RV_{T2}-1)-(RV_{T1}-1)}{RV_{T1}-1} \]</span></p></li>
+<li><p>Where <span class="math inline">\(RV_{T1}\)</span> is the ratio of victimization between comparison groups at time 1, and <span class="math inline">\(RV_{T2}\)</span> is the ratio of victimization between comparison groups at time 2</p></li>
+<li><p>What happens when <span class="math inline">\(RV_{T1}\)</span> is close to 1?</p></li>
 </ul>
 </section>
 <section id="the-victimisation-divide-what-sampling-distribution" class="slide level2">
 <h2>The victimisation divide: what sampling distribution?</h2>
-<ul>
-<li>Add figure here</li>
-</ul>
-<p><strong>Table 2. Prevalence of victimization by sex in England and Wales, 2015 and 2020</strong></p>
+
+<img data-src="figs/vig_fig.png" class="r-stretch quarto-figure-center"><p class="caption">vig-sample</p></section>
+<section id="victimization-divide-example-data" class="slide level2">
+<h2>Victimization divide example: data</h2>
+<p><strong>Table 1. Prevalence of victimization by sex in England and Wales, 2015 and 2020</strong></p>
 <table class="caption-top">
 <thead>
 <tr class="header">
@@ -249,9 +283,9 @@ Ben Matthews
 </table>
 <p><em>Source: Crime Survey for England and Wales. For the purposes of this illustrative example we have not applied survey weights.</em></p>
 </section>
-<section id="calculating-the-odds-ratios" class="slide level2">
-<h2>Calculating the Odds Ratios</h2>
-<p><strong>Table Three: Regression Coefficients for Differences in Victimization Prevalence by Sex in England and Wales, 2015 and 2020</strong></p>
+<section id="victimization-divide-example-odds-ratios" class="slide level2">
+<h2>Victimization divide example: Odds Ratios</h2>
+<p><strong>Table 2: Regression Coefficients for Differences in Victimization Prevalence by Sex in England and Wales, 2015 and 2020</strong></p>
 <table class="caption-top">
 <colgroup>
 <col style="width: 10%">
@@ -294,25 +328,27 @@ Ben Matthews
 </tr>
 </tbody>
 </table>
-<p><strong>Source:</strong> Crime Survey for England and Wales (using data from Table Two). Victimization prevalence for women was used as the reference category. Data for each year was modelled separately.</p>
+<p><strong>Source:</strong> Crime Survey for England and Wales (using data from Table 1). Victimization prevalence for women was used as the reference category. Data for each year was modelled separately.</p>
 </section>
 <section id="calculating-the-victimization-divide" class="slide level2">
 <h2>Calculating the victimization divide</h2>
 <p><span class="math display">\[
 D = \frac{(1.05 - 1) - (1.11 - 1)}{(1.11 - 1)} = -0.52
 \]</span></p>
+<ul>
+<li>Victimization inequality has fallen by 52%!</li>
+</ul>
 </section>
 <section id="uncertainty-in-this-estimate" class="slide level2">
 <h2>Uncertainty in this estimate</h2>
-<ul>
-<li>Add figure</li>
-</ul>
-</section>
+
+<img data-src="figs/vd_sims.png" class="r-stretch quarto-figure-center"><p class="caption">vig-sims</p></section>
 <section id="uh-oh" class="slide level2">
 <h2>Uh oh</h2>
 <ul>
-<li>When the difference in the first year is not statistically significant (i.e.&nbsp;when they plausibly overlap) calculating the victimization divide involves dividing by very small positive numbers, very small negative numbers, and maybe zero</li>
+<li>When there aren’t big differences between years (e.g.&nbsp;when the victimization rates plausibly overlap) calculating the victimization divide can involve dividing by very small positive numbers, very small negative numbers, and maybe zero</li>
 <li>This is bad!</li>
+<li>But at least the <span class="citation" data-cites="kingMakingMostStatistical2000">King, Tomz, and Wittenberg (<a href="#/references" role="doc-biblioref" onclick="">2000</a>)</span> simulation procedure can show you if things are going wrong</li>
 </ul>
 </section></section>
 <section>
@@ -324,56 +360,114 @@ D = \frac{(1.05 - 1) - (1.11 - 1)}{(1.11 - 1)} = -0.52
 <h2>Standardization and decomposition</h2>
 <ul>
 <li>You might want to separate out contributions of different factors to a rate in two or more populations</li>
-<li>This is standard practice in demography (see Kitagawa), and similar to Oaxaca-Blinder decomposition of regression results</li>
-<li>How much of the fall in Scotland’s reconviction rate is due to changing demographics?</li>
+<li>This is standard practice in demography <span class="citation" data-cites="kitagawaStandardizedComparisonsPopulation1964">(see <a href="#/references" role="doc-biblioref" onclick="">Kitagawa 1964</a>)</span></li>
+<li>How much of the fall in Scotland’s reconviction rate is due to changing demographics? (see Matthews et al.&nbsp;<em>in preparation</em>)</li>
 </ul>
 </section>
 <section id="a-nice-example" class="slide level2">
 <h2>A nice example</h2>
 <ul>
-<li>Insert results decomposing 2004 and 2016 difference</li>
-<li>add image from vignette</li>
+<li>Add in results for 2004/2016</li>
+</ul>
+</section>
+<section id="a-nice-example-1" class="slide level2">
+<h2>A nice example</h2>
+
+<img data-src="figs/fine-fig.png" class="r-stretch quarto-figure-center"><p class="caption">fine-fig</p></section>
+<section id="where-things-go-wrong" class="slide level2">
+<h2>Where things go wrong</h2>
+<ul>
+<li>Decomposition will decompose whatever difference there is - even if it is very small</li>
+<li>If there isn’t much difference in the underlying crude rate you are decomposing (in a hand-wavy way, if the difference is not statistically significant) then things can do haywire</li>
 </ul>
 </section>
 <section id="a-not-so-nice-example" class="slide level2">
 <h2>A not-so-nice example</h2>
 <ul>
-<li>Insert results decomposing 2015 and 2016 difference</li>
-<li>add image from vignette</li>
+<li>Add in results for 2004/2016</li>
 </ul>
 </section>
+<section id="a-not-so-nice-example-1" class="slide level2">
+<h2>A not-so-nice example</h2>
+
+<img data-src="figs/haywire-fig.png" class="r-stretch quarto-figure-center"><p class="caption">haywire-fig</p></section>
 <section id="its-the-same-problem" class="slide level2">
 <h2>It’s the same problem!</h2>
 <ul>
 <li>In both cases the ‘problem’ is that you are calculating a quantity of interest that can involve dividing by arbitrarily small numbers</li>
 <li>In the first case, you do absolutely need to factor in the uncertainty in the estimated victimization rates (it’s from a survey!)</li>
-<li>The simulated VDs help identify when the comparison is pathological - the King et al.&nbsp;method is useful as a quality check not just to provide clear outputs</li>
+<li>The simulated VDs help identify when the comparison is pathological - the <span class="citation" data-cites="kingMakingMostStatistical2000">King, Tomz, and Wittenberg (<a href="#/references" role="doc-biblioref" onclick="">2000</a>)</span> method is useful as a quality check not just to provide clear outputs</li>
 <li>(In that toy example, the fix is actually just to model all the years together with an interaction effect - but that won’t work so well in more complex cases)</li>
-<li>In this case (a la King) the simulation was after fitting the model (i.e.&nbsp;parametric)</li>
+<li>In this case (a la <span class="citation" data-cites="kingMakingMostStatistical2000">King, Tomz, and Wittenberg (<a href="#/references" role="doc-biblioref" onclick="">2000</a>)</span>) the simulation was after fitting the model (i.e.&nbsp;parametric)</li>
 </ul>
 </section>
 <section id="its-the-same-problem-1" class="slide level2">
 <h2>It’s the same problem!</h2>
 <ul>
-<li>In the second case maybe you could argue that you don’t need to factor in uncertainty in the underlying rates - it’s admin data, the reconviction cohorts are what they are, what are you a Bayesian or something</li>
-<li>But it’s still I think useful to know how sensitive your results are to small changes in the input data</li>
-<li>Bootstrapping the raw data (nonparametric simulation) can show when your results are fragile</li>
-<li>Likewise just a statistical significance test on the underlying rates</li>
+<li>I was very confused by the bad decomposition - why would the bootstrapping lead to these wild estimates (huge confidence intervals not centered on the true values!)</li>
+<li>The thing I was bootstrapping was the underlying data - and the bootstrapped distribution <em>of the crude rates</em> is fine</li>
+<li>But the decomposition is a transformation of these rates, and the properties of the rates do not necessarily transfer downstream to the transformation</li>
+</ul>
+</section>
+<section id="its-the-same-problem-2" class="slide level2">
+<h2>It’s the same problem!</h2>
+<ul>
+<li>In the second case maybe you could argue that you don’t need to factor in uncertainty in the underlying rates - it’s admin data, the reconviction cohorts are what they are, what are you a Bayesian or something <span class="citation" data-cites="verlaan2024use">(see <a href="#/references" role="doc-biblioref" onclick="">Verlaan and Langton 2024</a>)</span></li>
+<li>But it’s still I think useful to know how sensitive your results are to small changes in the input data, as much for pragmatic reasons as philosophical reasons</li>
+<li>Bootstrapping the raw data (nonparametric simulation <span class="citation" data-cites="carseyMonteCarloSimulation2014">(see <a href="#/references" role="doc-biblioref" onclick="">Carsey and Harden 2014</a>)</span>) can show when your results are fragile to small permutations in the data <span class="citation" data-cites="giordanoAutomaticFinitesampleRobustness2026">(see also <a href="#/references" role="doc-biblioref" onclick="">Giordano, Meager, and Broderick 2026</a>)</span></li>
 </ul>
 </section>
 <section id="why-is-this-useful" class="slide level2">
 <h2>Why is this useful</h2>
 <ul>
-<li>There is, it turns out, statistical theory on confidence intervals for ratios and how to calculate them etc (Ref from vignette)</li>
-<li>But I didn’t need to know that! The ‘rage hulk’ (h/t quantitude) method of letting computer go brrr identified the problem and gave calibrated uncertainty estimates</li>
+<li>There is, it turns out, statistical theory on confidence intervals for ratios and how to calculate them etc <span class="citation" data-cites="franzRatiosShortGuide2007">(<a href="#/references" role="doc-biblioref" onclick="">Franz 2007</a>)</span></li>
+<li>But the ‘rage hulk’ (h/t <a href="https://quantitudepod.org/?s=rage+hulk">Quantitude</a>) method of letting computer go brrr identified the problem and gave calibrated uncertainty estimates</li>
 <li><code>marginaleffects</code> package for R and <code>clarify</code> package for R and Stata can do this post-estimation caculation from a regression model</li>
 </ul>
 </section></section>
+<section>
 <section id="thank-you" class="title-slide slide level1 center" data-background-color="#006938">
 <h1>Thank you!</h1>
 
-
 </section>
+<section id="references" class="slide level2 smaller scrollable">
+<h2>References</h2>
+
+
+<div id="refs" class="references csl-bib-body hanging-indent" data-entry-spacing="0" role="list">
+<div id="ref-arel-bundockHowInterpretStatistical2024a" class="csl-entry" role="listitem">
+Arel-Bundock, Vincent, Noah Greifer, and Andrew Heiss. 2024. <span>“How to <span>Interpret Statistical Models Using</span> Marginaleffects for <span>R</span> and <span>Python</span>.”</span> <em>Journal of Statistical Software</em> 111 (November): 1–32. <a href="https://doi.org/10.18637/jss.v111.i09">https://doi.org/10.18637/jss.v111.i09</a>.
+</div>
+<div id="ref-carseyMonteCarloSimulation2014" class="csl-entry" role="listitem">
+Carsey, Thomas M., and Jeffrey J. Harden. 2014. <em>Monte <span>Carlo Simulation</span> and <span>Resampling Methods</span> for <span>Social Science</span></em>. SAGE Publications, Inc. <a href="https://doi.org/10.4135/9781483319605">https://doi.org/10.4135/9781483319605</a>.
+</div>
+<div id="ref-franzRatiosShortGuide2007" class="csl-entry" role="listitem">
+Franz, Volker H. 2007. <span>“Ratios: <span>A</span> Short Guide to Confidence Limits and Proper Use.”</span> arXiv. <a href="https://doi.org/10.48550/arXiv.0710.2024">https://doi.org/10.48550/arXiv.0710.2024</a>.
+</div>
+<div id="ref-gelmanAveragePredictiveComparisons2007" class="csl-entry" role="listitem">
+Gelman, Andrew, and Iain Pardoe. 2007. <span>“Average <span>Predictive Comparisons</span> for <span>Models</span> with <span>Nonlinearity</span>, <span>Interactions</span>, and <span>Variance Components</span>.”</span> <em>Sociological Methodology</em> 37 (1): 23–51. <a href="https://doi.org/10.1111/j.1467-9531.2007.00181.x">https://doi.org/10.1111/j.1467-9531.2007.00181.x</a>.
+</div>
+<div id="ref-giordanoAutomaticFinitesampleRobustness2026" class="csl-entry" role="listitem">
+Giordano, Ryan, Rachael Meager, and Tamara Broderick. 2026. <span>“An Automatic Finite-Sample Robustness Metric: When Can Dropping a Little Data Change Conclusions? <span>Part I</span>: Definitions and Experiments.”</span> <em>Philosophical Transactions of the Royal Society A: Mathematical, Physical and Engineering Sciences</em> 384 (2321): 20250001. <a href="https://doi.org/10.1098/rsta.2025.0001">https://doi.org/10.1098/rsta.2025.0001</a>.
+</div>
+<div id="ref-hunterEquityJusticeCrime2016" class="csl-entry" role="listitem">
+Hunter, James, and Andromachi Tseloni. 2016. <span>“Equity, Justice and the Crime Drop: The Case of Burglary in <span>England</span> and <span>Wales</span>.”</span> <em>Crime Science</em> 5 (1): 3. <a href="https://doi.org/10.1186/s40163-016-0051-z">https://doi.org/10.1186/s40163-016-0051-z</a>.
+</div>
+<div id="ref-kingMakingMostStatistical2000" class="csl-entry" role="listitem">
+King, Gary, Michael Tomz, and Jason Wittenberg. 2000. <span>“Making the <span>Most</span> of <span>Statistical Analyses</span>: <span>Improving Interpretation</span> and <span>Presentation</span>.”</span> <em>American Journal of Political Science</em> 44: 341–55.
+</div>
+<div id="ref-kitagawaStandardizedComparisonsPopulation1964" class="csl-entry" role="listitem">
+Kitagawa, Evelyn M. 1964. <span>“Standardized <span>Comparisons</span> in <span>Population Research</span>.”</span> <em>Demography</em> 1 (1): 296. <a href="https://doi.org/10.2307/2060055">https://doi.org/10.2307/2060055</a>.
+</div>
+<div id="ref-matthewsCrimeDropWhom2025" class="csl-entry" role="listitem">
+Matthews, Ben, and Susan McVie. 2025. <span>“A Crime Drop for Whom? <span>Conceptualizing</span> and Measuring Change in Victimization Inequality.”</span> In <em>Handbook on <span>Crime</span> and <span>Inequality</span></em>, 402–25. Edward Elgar Publishing.
+</div>
+<div id="ref-verlaan2024use" class="csl-entry" role="listitem">
+Verlaan, Tim, and Samuel Langton. 2024. <span>“On the Use of Inferential Statistics on Administrative Police Data.”</span> In <em>The Crime Data Handbook</em>, 197–210. Bristol University Press.
+</div>
+</div>
+</section></section>
+
     </div>
   <div class="quarto-auto-generated-content" style="display: none;">
 <div class="footer footer-default">
