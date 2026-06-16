@@ -185,8 +185,9 @@ $$
 
 ## Why is this useful
 
-- There is, it turns out, statistical theory on confidence intervals for ratios and how to calculate them etc [@franzRatiosShortGuide2007]
-- But the 'rage hulk' (h/t [Quantitude](https://quantitudepod.org/?s=rage+hulk)) method of letting computer go brrr identified the problem and gave calibrated uncertainty estimates
+- There is, it turns out, statistical theory on confidence intervals for ratios and how to calculate them etc [@franzRatiosShortGuide2007] (TLDR: it's complicated)
+- But I didn't need to know about these! 
+- The 'rage hulk' (h/t [Quantitude](https://quantitudepod.org/?s=rage+hulk)) method of letting computer go brrr and applying the method hundreds of times identified the problem and gave calibrated uncertainty estimates - even though they were useful for spotting a problem rather than clear communication
 - `marginaleffects` package for R and `clarify` package for R and Stata can do this post-estimation caculation from a regression model
 
 # Thank you! {background-color="#006938"}
