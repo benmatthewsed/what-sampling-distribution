@@ -60,6 +60,11 @@ bibliography: bibliography.bib
 
 # Case study one: Victimization divide {background-color="#006938"}
 
+## Changing inequality in victimization
+- Crime has fallen a lot in the last few decades
+- Victimization is unequally distributed
+- How has victimization inequality changed over the period of falling crime?
+
 ## The victimisation divide: conceptually
 
 - "the percentage increase or decrease in victimization inequality between two groups across two comparison years" [my summary in @matthewsCrimeDropWhom2025]
@@ -67,7 +72,7 @@ bibliography: bibliography.bib
 - "The victimisation divide between the base household and almost all socio-economic groups examined here widened between 1993 and 2008/09" [@hunterEquityJusticeCrime2016]
 - "For example, non-white [Household Reference Person (HRP)] households experienced almost a fourfold (3.91, calculated as [(1.486–1)−(1.099–1)]/(1.099–1) from Table 2) increase in the number of burglaries suffered compared to white HRP households"[^2]
 
-[^2]: I think these numbers are coefficients from a Negative Binomial regression model? It's possible that they are actually predicted counts - the paper isn't clear
+[^2]: I think these numbers are coefficients from a Negative Binomial regression model? It's possible that they are actually predicted counts - the paper isn't super clear
 
 ## The victimisation divide: Mathematically
 
@@ -143,7 +148,7 @@ $$
 
 ## Where things go wrong
 - Decomposition will decompose whatever difference there is - even if it is very small
-- If there isn't much difference in the underlying crude rate you are decomposing (in a hand-wavy way, if the difference is not statistically significant) then things can do haywire
+- If there isn't much difference in the underlying crude rate you are decomposing (in a hand-wavy way, if the difference is not statistically significant) then things can go haywire
 
 ## A not-so-nice example
 | Factor    | 2015 | 2016 | difference  | decomposition |
@@ -163,8 +168,9 @@ $$
 - In both cases the 'problem' is that you are calculating a quantity of interest that can involve dividing by arbitrarily small numbers
 - In the first case, you do absolutely need to factor in the uncertainty in the estimated victimization rates (it's from a survey!)
 - The simulated VDs help identify when the comparison is pathological - the @kingMakingMostStatistical2000 method is useful as a quality check not just to provide clear outputs
-- (In that toy example, the fix is actually just to model all the years together with an interaction effect - but that won't work so well in more complex cases)
 - In this case (a la @kingMakingMostStatistical2000) the simulation was after fitting the model (i.e. parametric)
+
+[aside]: (In that toy example, the fix is actually just to model all the years together with an interaction effect - but that won't work so well in more complex cases)
 
 ## It's the same problem!
 

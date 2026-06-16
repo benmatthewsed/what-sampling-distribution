@@ -222,6 +222,14 @@ Ben Matthews
 <h1>Case study one: Victimization divide</h1>
 
 </section>
+<section id="changing-inequality-in-victimization" class="slide level2">
+<h2>Changing inequality in victimization</h2>
+<ul>
+<li>Crime has fallen a lot in the last few decades</li>
+<li>Victimization is unequally distributed</li>
+<li>How has victimization inequality changed over the period of falling crime?</li>
+</ul>
+</section>
 <section id="the-victimisation-divide-conceptually" class="slide level2 scrollable">
 <h2>The victimisation divide: conceptually</h2>
 <ul>
@@ -229,7 +237,7 @@ Ben Matthews
 <li><p>“The victimisation divide between the base household and almost all socio-economic groups examined here widened between 1993 and 2008/09” <span class="citation" data-cites="hunterEquityJusticeCrime2016">(<a href="#/references" role="doc-biblioref" onclick="">Hunter and Tseloni 2016</a>)</span></p></li>
 <li><p>“For example, non-white [Household Reference Person (HRP)] households experienced almost a fourfold (3.91, calculated as [(1.486–1)−(1.099–1)]/(1.099–1) from Table 2) increase in the number of burglaries suffered compared to white HRP households”<sup>1</sup></p></li>
 </ul>
-<aside><ol class="aside-footnotes"><li id="fn2"><p>I think these numbers are coefficients from a Negative Binomial regression model? It’s possible that they are actually predicted counts - the paper isn’t clear</p></li></ol></aside></section>
+<aside><ol class="aside-footnotes"><li id="fn2"><p>I think these numbers are coefficients from a Negative Binomial regression model? It’s possible that they are actually predicted counts - the paper isn’t super clear</p></li></ol></aside></section>
 <section id="the-victimisation-divide-mathematically" class="slide level2">
 <h2>The victimisation divide: Mathematically</h2>
 <ul>
@@ -416,7 +424,7 @@ D = \frac{(1.05 - 1) - (1.11 - 1)}{(1.11 - 1)} = -0.52
 <h2>Where things go wrong</h2>
 <ul>
 <li>Decomposition will decompose whatever difference there is - even if it is very small</li>
-<li>If there isn’t much difference in the underlying crude rate you are decomposing (in a hand-wavy way, if the difference is not statistically significant) then things can do haywire</li>
+<li>If there isn’t much difference in the underlying crude rate you are decomposing (in a hand-wavy way, if the difference is not statistically significant) then things can go haywire</li>
 </ul>
 </section>
 <section id="a-not-so-nice-example" class="slide level2">
@@ -477,7 +485,6 @@ D = \frac{(1.05 - 1) - (1.11 - 1)}{(1.11 - 1)} = -0.52
 <li>In both cases the ‘problem’ is that you are calculating a quantity of interest that can involve dividing by arbitrarily small numbers</li>
 <li>In the first case, you do absolutely need to factor in the uncertainty in the estimated victimization rates (it’s from a survey!)</li>
 <li>The simulated VDs help identify when the comparison is pathological - the <span class="citation" data-cites="kingMakingMostStatistical2000">King, Tomz, and Wittenberg (<a href="#/references" role="doc-biblioref" onclick="">2000</a>)</span> method is useful as a quality check not just to provide clear outputs</li>
-<li>(In that toy example, the fix is actually just to model all the years together with an interaction effect - but that won’t work so well in more complex cases)</li>
 <li>In this case (a la <span class="citation" data-cites="kingMakingMostStatistical2000">King, Tomz, and Wittenberg (<a href="#/references" role="doc-biblioref" onclick="">2000</a>)</span>) the simulation was after fitting the model (i.e.&nbsp;parametric)</li>
 </ul>
 </section>
