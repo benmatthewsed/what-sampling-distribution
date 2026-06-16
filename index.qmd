@@ -67,7 +67,7 @@ bibliography: bibliography.bib
 - "The victimisation divide between the base household and almost all socio-economic groups examined here widened between 1993 and 2008/09" [@hunterEquityJusticeCrime2016]
 - "For example, non-white [Household Reference Person (HRP)] households experienced almost a fourfold (3.91, calculated as [(1.486–1)−(1.099–1)]/(1.099–1) from Table 2) increase in the number of burglaries suffered compared to white HRP households"[^2]
 
-[^2]: I think these numbers are coefficients from a Negative Binomial regression model. It's possible that they are actually predicted counts - the paper isn't clear
+[^2]: I think these numbers are coefficients from a Negative Binomial regression model? It's possible that they are actually predicted counts - the paper isn't clear
 
 ## The victimisation divide: Mathematically
 
@@ -131,7 +131,12 @@ $$
 - How much of the fall in Scotland's reconviction rate is due to changing demographics? (see Matthews et al. _in preparation_)
 
 ## A nice example
-- Add in results for 2004/2016
+| Factor    | 2004 | 2016 | difference  | decomposition |
+|------------|------|------|-------|--------|
+| Age structure | 0.31 | 0.28 | -0.02 | 41.3   |
+| Reconviction prevalence  | 0.31 | 0.28 | -0.03 | 57.2   |
+| Sex structure | 0.29 | 0.29 | 0.00  | 1.5    |
+| Crude rate      | 0.32 | 0.27 | -0.05 | 100.0  |
 
 ## A nice example
 ![fine-fig](figs/fine-fig.png)
@@ -141,10 +146,18 @@ $$
 - If there isn't much difference in the underlying crude rate you are decomposing (in a hand-wavy way, if the difference is not statistically significant) then things can do haywire
 
 ## A not-so-nice example
-- Add in results for 2004/2016
+| Factor    | 2015 | 2016 | difference  | decomposition |
+|------------|------|------|------|--------|
+| Age structure| 0.27 | 0.27 | 0    | 114.25 |
+| Reconviction prevalence  | 0.27 | 0.27 | 0    | -14.47 |
+| Sex structure | 0.27 | 0.27 | 0    | 0.22   |
+| Crude rate      | 0.27 | 0.27 | 0    | 100.00 |
 
 ## A not-so-nice example
-![haywire-fig](figs/haywire-fig.png)
+![haywire-fig](figs/haywire1-fig.png)
+
+## A not-so-nice example
+![haywire-fig](figs/haywire2-fig.png)
 
 ## It's the same problem!
 - In both cases the 'problem' is that you are calculating a quantity of interest that can involve dividing by arbitrarily small numbers
